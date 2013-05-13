@@ -7,6 +7,7 @@ Usage
 ==============
 After installing the package, you'll need to create XAML templates for the types of images you want to create. A basic button is included as a sample.
 
+<pre>
 &lt;UserControl xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot; xmlns:d=&quot;http://schemas.microsoft.com/expression/blend/2008&quot; xmlns:mc=&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot; mc:Ignorable=&quot;d&quot;&gt;
 &lt;Grid x:Name=&quot;LayoutRoot&quot; HorizontalAlignment=&quot;Left&quot; VerticalAlignment=&quot;Top&quot;&gt;
     &lt;Button HorizontalAlignment=&quot;Center&quot; BorderThickness=&quot;0&quot; VerticalAlignment=&quot;Center&quot; FontFamily=&quot;Calibri&quot; FontSize=&quot;13&quot; FontWeight=&quot;Bold&quot;&gt;
@@ -19,18 +20,21 @@ After installing the package, you'll need to create XAML templates for the types
     &lt;/Button&gt;
 &lt;/Grid&gt;
 &lt;/UserControl&gt;
+</pre>
 
 Standard Razor code is used to put dynamic data into the image. The template can reference properties on an object you'll provide when you call the ImageGenerator. That object is available in your template as "Model"
 similar to how ASP.NET MVC ViewModels are.
 
 To get a byte array to do with as you please (save it yourself, serve it up directly, cache, etc.): 
 
+<pre>
 string xamlString = File.ReadAllText("SampleTemplates/BlueButton.xaml");
 string imgOutputFileName = "BlueButton.png";
 
 dynamic viewModel = new ExpandoObject();
 viewModel.Text = "Add to Cart";
 byte[] image = ImageGenerator.GenerateImage(xamlString, viewModel);
+</pre>
 
 To generate a file, add the full path to where you want the PNG saved as a 3rd parameter and call the GenerateImageFile() instead:
 
