@@ -38,6 +38,7 @@ byte[] image = ImageGenerator.GenerateImage(xamlString, viewModel);
 
 To generate a file, add the full path to where you want the PNG saved as a 3rd parameter and call the GenerateImageFile() instead:
 
+<pre>
 string xamlString = File.ReadAllText("SampleTemplates/BlueButton.xaml");
 string imgOutputFileName = "BlueButton.png";
 
@@ -48,3 +49,6 @@ String imageOutputPath = Directory.CreateDirectory("Output").FullName;
 String fullFileName = Path.Combine(imageOutputPath,imgOutputFileName);
 
 byte[] imageFile = ImageGenerator.GenerateImageFile(xamlString, viewModel, fullFileName);
+</pre>
+
+When generating the file, you'll still get back the byte array, but the file will be sitting in the place you specify.
