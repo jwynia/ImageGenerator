@@ -3,6 +3,8 @@ ImageGenerator
 
 ImageGenerator creates PNG images from XAML templates. Use it to put text onto buttons or any other purpose where you need to generate images based on runtime data.
 
+I've used it mostly to generate buttons that more easily match mockups than fiddling with CSS, but theoretically, most XAML should work. Any fonts will need to be installed on the machine where this code runs in order for it to be properly used.
+
 Usage
 ==============
 After installing the package, you'll need to create XAML templates for the types of images you want to create. A basic button is included as a sample.
@@ -36,7 +38,7 @@ viewModel.Text = "Add to Cart";
 byte[] image = ImageGenerator.GenerateImage(xamlString, viewModel);
 </pre>
 
-To generate a file, add the full path to where you want the PNG saved as a 3rd parameter and call the GenerateImageFile() instead:
+To generate a file, add the full path to where you want the PNG saved as a 3rd parameter and call the GenerateImageFile() method instead:
 
 <pre>
 string xamlString = File.ReadAllText("SampleTemplates/BlueButton.xaml");
