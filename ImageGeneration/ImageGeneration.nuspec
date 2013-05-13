@@ -13,5 +13,8 @@
     <releaseNotes>Initial Release</releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags>xaml image</tags>
+    <dependencies>
+      <dependency id="RazorEngine" version="3.2.0" />
+    </dependencies>
   </metadata>
 </package>
