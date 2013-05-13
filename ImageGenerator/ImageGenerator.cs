@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -14,65 +9,62 @@ namespace ImageGenerator
 {
     public class ImageGenerator
     {
-
         private byte[] GenImageFileFromXaml(string xaml, string outputFileName)
         {
-            var _pngBytes = GenImageFromXaml(xaml);
+            var pngBytes = GenImageFromXaml(xaml);
 
-            using (BinaryWriter _binWriter =
-            new BinaryWriter(System.IO.File.Open(outputFileName, FileMode.Create)))
+            using (BinaryWriter binWriter = new BinaryWriter(File.Open(outputFileName, FileMode.Create)))
             {
-                _binWriter.Write(_pngBytes);
+                binWriter.Write(pngBytes);
             }
-            return _pngBytes;
+            return pngBytes;
         }
 
         private byte[] GenImageFromXaml(string xaml)
         {
-            FrameworkElement _element = XamlReader.Parse(xaml) as FrameworkElement;
-            var _pngBytes = GetPngImage(_element);
-            return _pngBytes;
+            FrameworkElement element = XamlReader.Parse(xaml) as FrameworkElement;
+            var pngBytes = GetPngImage(element);
+            return pngBytes;
         }
 
         private byte[] GetPngImage(FrameworkElement element)
         {
-            var _size = new System.Windows.Size(double.PositiveInfinity, double.PositiveInfinity);
-            element.Measure(_size);
+            var size = new Size(double.PositiveInfinity, double.PositiveInfinity);
+            element.Measure(size);
             element.Arrange(new Rect(element.DesiredSize));
-            var _renderTarget =
-              new RenderTargetBitmap((int)element.RenderSize.Width,
-                                     (int)element.RenderSize.Height,
-                                     96, 96,
-                                     PixelFormats.Pbgra32);
-            var _sourceBrush = new VisualBrush(element);
-            var _drawingVisual = new DrawingVisual();
-            using (DrawingContext _drawingContext = _drawingVisual.RenderOpen())
+            var renderTarget =
+                new RenderTargetBitmap((int) element.RenderSize.Width,
+                                       (int) element.RenderSize.Height,
+                                       96, 96,
+                                       PixelFormats.Pbgra32);
+            var sourceBrush = new VisualBrush(element);
+            var drawingVisual = new DrawingVisual();
+            using (DrawingContext drawingContext = drawingVisual.RenderOpen())
             {
-                _drawingContext.DrawRectangle(
-                    _sourceBrush, null, new System.Windows.Rect(
-                                           new System.Windows.Point(0, 0),
-                                           new System.Windows.Point(element.RenderSize.Width,
-                                           element.RenderSize.Height)));
+                drawingContext.DrawRectangle(
+                    sourceBrush, null, new Rect(
+                                           new Point(0, 0),
+                                           new Point(element.RenderSize.Width,element.RenderSize.Height)));
             }
-            _renderTarget.Render(_drawingVisual);
-            var _pngEncoder = new PngBitmapEncoder();
-            _pngEncoder.Frames.Add(BitmapFrame.Create(_renderTarget));
-            using (var _outputStream = new MemoryStream())
+            renderTarget.Render(drawingVisual);
+            var pngEncoder = new PngBitmapEncoder();
+            pngEncoder.Frames.Add(BitmapFrame.Create(renderTarget));
+            using (var outputStream = new MemoryStream())
             {
-                _pngEncoder.Save(_outputStream);
-                return _outputStream.ToArray();
+                pngEncoder.Save(outputStream);
+                return outputStream.ToArray();
             }
         }
 
         public byte[] GenerateImage(string xamlString, object viewModel)
         {
-            var parsedXaml = Razor.Parse(xamlString, viewModel,"Model");
+            var parsedXaml = Razor.Parse(xamlString, viewModel, "Model");
             return GenImageFromXaml(parsedXaml);
         }
 
         public void GenerateImageFile(string outputFilePath, string xamlString, object viewModel)
         {
-            var parsedXaml = Razor.Parse(xamlString, viewModel,"Model");
+            var parsedXaml = Razor.Parse(xamlString, viewModel, "Model");
             GenImageFileFromXaml(parsedXaml, outputFilePath);
         }
     }
