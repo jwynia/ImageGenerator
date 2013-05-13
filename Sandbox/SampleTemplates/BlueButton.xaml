@@ -10,6 +10,7 @@
                 VerticalAlignment="Center"
                 FontFamily="Calibri" 
                 FontSize="13" 
+                FontWeight= "Bold"
             >
             <Button.Background>
                 <SolidColorBrush Color="#153E7E" />
