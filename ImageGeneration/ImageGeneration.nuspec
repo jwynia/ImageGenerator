@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>ImageGenerator</id>
+    <version>0.9</version>
+    <title>ImageGenerator</title>
+    <authors>J Wynia</authors>
+    <owners>J Wynia</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/jwynia/ImageGenerator</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>ImageGenerator creates PNG images from XAML templates. Use it to put text onto buttons or any other purpose where you need to generate images based on runtime data.</description>
+    <releaseNotes>Initial Release</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>xaml image</tags>
+  </metadata>
+</package>
